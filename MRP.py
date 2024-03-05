@@ -3,7 +3,7 @@ Filename: MRP.py
 Description: This script functions as a Material Requirement Planning (MRP) tool,
 designed to facilitate and control the procurement process in alignment with the Just-in-Time (JIT) Manufacturing principle.
 Author: Dumri Ketupanya
-Date created: June 8, 2017
+Date created: June 8, 2020
 """
 
 ############ MRP Not allowed to use when MPS not updated. ##################

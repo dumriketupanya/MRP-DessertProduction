@@ -2,7 +2,7 @@
 Filename: OMS.py
 Description: This script functions as a Order Management System (OMS). Designed to tracking customer orders.
 Author: Dumri Ketupanya
-Date created: June 8, 2017
+Date created: June 8, 2020
 """
 
 # import required modules =====================================================================================

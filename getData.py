@@ -2,7 +2,7 @@
 Filename: getData.py
 Description: This script serves as the central mechanism for downloading files and loading data into the system.
 Author: Dumri Ketupanya
-Date created: June 8, 2017
+Date created: June 8, 2020
 """
 
 # import required modules =========================================================================

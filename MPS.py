@@ -2,7 +2,7 @@
 Filename: MPS.py
 Description: This script serves as the Master Plan Schedule (MPS). Which use for effectively control the production line.
 Author: Dumri Ketupanya
-Date created: June 8, 2017
+Date created: June 8, 2020
 """
 
 # import required modules =====================================================================================

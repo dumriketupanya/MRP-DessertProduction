@@ -2,7 +2,7 @@
 Filename: IMS.py
 Description: This script serves as the Inventory Management System (IMS). Which use for inventory management and tracking.
 Author: Dumri Ketupanya
-Date created: June 8, 2017
+Date created: June 8, 2020
 """
 
 # import required modules =====================================================================================
