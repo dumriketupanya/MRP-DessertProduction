@@ -12,7 +12,7 @@ import os
 
 # User Interface Section =======================================================================================
 root = Tk()
-root.title("Operation management V1.0")
+root.title("Operation management Version 0.1")
 root.option_add("*Font","arial 20")
 
 Label(root,text="Welcome!", bg='deep sky blue').grid(row=0,column=0,sticky="news",ipady=10)
