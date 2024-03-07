@@ -6,9 +6,62 @@ This project aims to develop an Integrated MRP program for dessert production, w
 Our primary goal is to oversee the entire process, fostering more efficient operational management and cost-effective control.
 
 
-## Material Requirement Plan (MRP)
+## Take a tour
+Here's an overview of the 6 modules included in this program. We'll explain the principles behind each module as we tour through them. This diagram illustrates the overall principles behind the program.
 
-## Overview of the Program
+// diagram
+
+Let's get started!
+
+### Home Page
+The home page serves as the central hub to access other modules. User can also export the data files from the database too.
+
+// Homepage PIC
+
+### Bill of materials (BOM)
+The Bill of Materials (BOM) is a list of ingrediants, raw materials, components, or sub-assemblies needed to create a product. It includes quantities and sometimes also specify the hierarchy of components, showing how they are assembled.
+
+Currently, the program is designed for a single product,which is a pudding!! Users can specify the quantities of each ingredient used. And can add or delete ingredients as needed. Additionally, the program allows users to input the cost of each ingredient too.
+
+// BOM PIC
+
+### Order Management System (OMS)
+This module help streamlines the order processing workflow. It is an order tracking which starts from order creation and continues through inventory management, which is handled in another module.
+
+Users can input customer names, products, order quantities, and adjust delivery times. A capacity gauge the remaining capacity for preventing order overload. Users also have the option to view, edit, and delete order history.
+
+// OMS PIC
+
+### Purchase Records
+A Purchase Record is a detailed log of all purchased. It should includes information such as supplier details, purchase quantities, unit prices, and transaction dates. Purchase Records are essential for tracking procurement activities.
+
+Users can create a purchase log by selecting the ingredient name from the Bill of Materials (BOM), specifying order quantities, cost, procurement date, production date, and expiration date. Also, users can view a detailed historical log of purchases.
+
+// Purchase records PIC
+
+### Inventory Management System (IMS)
+An Inventory Management helps track and manage store inventory levels. It shouldprovides a stock levels, locations, and movement, enabling better inventory control and reducing the risk of stockouts or overstocking.
+
+Users can select an ingredient's name and then click "check." The system will display the available quantity of that ingredient, and users can also view the inventory list.
+
+//Inventory PIC
+
+
+### Master Plan Schedule (MPS)
+This is a detailed plan that specifies what products will be manufactured, in what quantities, and when. The MPS serves as a blueprint for production activities. It considers factors such as customer demand , production capacity, and resource availability which is derived from the other components.
+
+The MPS displays production times per batch, working hours, maximum efficiency, and effective efficiency. The table shows total orders received and the status of each produced batch, including "waiting," "work in process (WIP)," and "Finished."
+
+//MPS PIC
+
+### Materials Requirement Plan (MRP)
+A production planning and inventory control system that determines the materials needed for production based master plan Schedule. MRP helps in maintaining optimal inventory levels and ensuring that materials are available when needed for production.
+
+This module displays production status, product availability, and the total budget required. The table lists each required ingredient and indicates any shortages or surpluses, which are related to the Master Plan Schedule (MPS).
+
+// MRP PIC
+
+
 
 ## Sample script - Order Management System (OMS)
 
@@ -116,7 +169,7 @@ Below is a sample line of codes in the Order Management module, which is a compo
     select_data()
 
 
-#### add new order
+#### Add new orders
     def new_order_ex():
     global new_order_number
     n_order_num = new_order_number
