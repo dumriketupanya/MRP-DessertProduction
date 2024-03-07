@@ -7,9 +7,12 @@ Our primary goal is to oversee the entire process, fostering more efficient oper
 
 
 ## Material Requirement Plan (MRP)
-## Sample program - Order Management System (OMS)
 
-Below is a sample of the Order Management module, which is a component of our program. We have developed this prototype using the Python language to interact with an SQLite3 database, known for its robustness. The graphical user interface (GUI) has been created using tkinter to provide an interactive experience.
+## Overview of the Program
+
+## Sample script - Order Management System (OMS)
+
+Below is a sample line of codes in the Order Management module, which is a component of our program. We have developed this prototype using the Python language to interact with an SQLite3 database, known for its robustness. The graphical user interface (GUI) has been created using tkinter to provide an interactive experience.
 
 #### Importing necessary modules
     from tkinter import *               # Importing the entire tkinter module
@@ -60,7 +63,7 @@ Below is a sample of the Order Management module, which is a component of our pr
 	except Exception as e:	                                            # Printing an error message if an exception occurs
         print("Error -> {}".format(e))
 
-#### Function to efficiently select and populate data from the 'Order_Records' table into the 'data_lst_eff' global list
+#### Function to select and populate data from the 'Order_Records' table into the 'data_lst_eff' global list
     def select_data_eff():
     try:
         data_lst_eff.clear()
@@ -77,7 +80,7 @@ Below is a sample of the Order Management module, which is a component of our pr
     setting_lst = []
 
 
-##### Function to select and populate data from the 'setting_property' table into the 'setting_lst' global list
+#### Function to select and populate data from the 'setting_property' table into the 'setting_lst' global list
     def select_setting_data():
     try:
         with sqlite3.connect("Production_Plan.sqlite") as con:
@@ -111,3 +114,143 @@ Below is a sample of the Order Management module, which is a component of our pr
 #### Creating the 'Order_Records' table and selecting when executing a program 
     create_data_table()
     select_data()
+
+
+#### add new order
+    def new_order_ex():
+    global new_order_number
+    n_order_num = new_order_number
+    n_customer = En_Customername.get()
+    n_product = product.get()
+    n_qty = float(En_Order_Qty.get())
+    n_record = str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+    n_due = collect_time_str[0]
+    # print(f'''
+    #        INSERT INTO Order_record (Order_Number, Customer, Product,
+    #        Order_Quantity, Record_Datetime, Due_Datetime) VALUES ({n_order_num}, {n_customer},
+    #        {n_product}, {n_qty}, {n_record}, {n_due})
+    #        ''')
+    # print(type(n_order_num), type(n_customer), type(n_product), type(n_qty), type(n_record), type(n_due))
+    try:
+        with sqlite3.connect("Production_Plan.sqlite") as con:
+            if n_customer == "" or n_product == "" or n_qty == (0 or "") or n_due == 0:
+                messagebox.showerror('Data Missing!', 'Data Missing!')
+                pass
+            else:
+                sql_cmd = f'''
+                INSERT INTO Order_Records (Order_Number, Customer, Product, Order_Quantity,
+                Record_Datetime, Due_Datetime, Progress) VALUES ({n_order_num}, '{n_customer}',
+                '{n_product}', {n_qty}, '{n_record}', '{n_due}', 'Waiting')'''
+                sql_cmd_prod_plan = f'''
+                INSERT INTO Production_plan (Due_time, Order_Number, Order_Quantity, progress) 
+                VALUES ('{n_due}', {n_order_num}, {n_qty}, 'Waiting')'''
+                # print(sql_cmd)
+                con.execute(sql_cmd)
+                con.execute(sql_cmd_prod_plan)
+                new_order_number = new_order_number + 1
+                order_number()
+                messagebox.showinfo("Success", "Order has been added successfully!")
+    except Exception as e:
+        print("Error -> {}".format(e))
+### User Interfaces
+
+#### Main Window
+    root = Tk()  # Main window creation
+    root.title("Order Records")  # Set window title
+    root.option_add("*Font", "arial 11")  # Global font setting
+
+
+#### Title
+    Title_frame = Frame(root, bg='blue violet')  # Creating a frame for the title 
+    Title_frame.grid(row=0, column=0, columnspan=9, sticky='news')  # Placing the frame in the grid layout
+    Title_Label = Label(Title_frame, text="New orders")  # Creating a label for the title
+    Title_Label.pack(padx=10, pady=10, side=LEFT)  # Packing the label within the frame with padding and alignment
+
+
+#### Subtitle
+    # Creating labels for each subtitle item 
+    Subtitle_1 = ["Order NO.", "Customer", "Product", "Order Quantity", "Record datetime", "Due datetime"]
+
+    # placing them in the grid layout
+    for e, i in enumerate(Subtitle_1):
+        Label(root, text=i, bg="magenta").grid(row=1, column=e, padx=1, sticky='news')
+
+
+####   Customer name 
+    Customer_Name = StringVar()
+    En_Customername = Entry(root, textvariable=Customer_Name)
+    En_Customername.grid(row=2, column=(Subtitle_1.index("Customer")))
+
+#### Order Quantity
+    Order_Qty = DoubleVar()
+    En_Order_Qty = Entry(root, textvariable=Order_Qty, width=13)
+    En_Order_Qty.grid(row=2, column=(Subtitle_1.index("Order Quantity")))
+
+#### Order Number 
+    # Autogenerated Data and Read-Only
+    if Data_list == []:
+        new_order_number = 0
+    else:
+        new_order_number = (Data_list[-1][0]) + 1
+
+    def order_number():
+        # Function to display the order number
+        Order_Num = Label(root, text=(new_order_number), bg="plum")
+        Order_Num.grid(row=2, column=(Subtitle_1.index("Order NO.")))
+
+    order_number()
+
+#### Record Time
+    currentDT = datetime.datetime.now()
+    Date_Record = Label(root, text=(currentDT.strftime("%Y-%m-%d %H:%M:%S")), bg="plum")
+    Date_Record.grid(row=2, column=(Subtitle_1.index("Record datetime")))
+
+#### Subwindow - Calendar
+    collect_time_str = [0]
+
+    def calendar():
+        # Function to create a calendar interface
+        root2 = Tk()
+        root2.title("Calendar")
+        root2.option_add("*Font", "consolas 15")
+
+        # Function to submit selected date
+        def date_submit(e):
+            collect_date = datetime.date(int(year.get()), int(month.get()), int(day.get()))
+            collect_time = datetime.time(int(hour.get()), int(minute.get()), int(sec.get()))
+            collect_time_print = f"{collect_date} {collect_time}"
+            collect_time_str.insert(0, f"{collect_date} {collect_time}")
+            Due_Time = Label(root, text=collect_time_print, bg="plum")
+            Due_Time.grid(row=2, column=(Subtitle_1.index("Due datetime")))
+
+        # Title
+        title = ["Day", "Month", "Year", "  ", "Hour", "Minute", "Sec"]
+        for e, i in enumerate(title):
+            Label(root2, text=i).grid(row=0, column=e, sticky=W)
+
+        # Comboboxes for date and time selection
+        currentdate = datetime.datetime.now()
+        day = ttk.Combobox(root2, values=list(range(1, 32)), width=3)
+        day.grid(row=1, column=title.index("Day"))
+        day.current(currentdate.day - 1)
+        month = ttk.Combobox(root2, values=list(range(1, 13)), width=3)
+        month.grid(row=1, column=title.index("Month"))
+        month.current(currentdate.month - 1)
+        year = ttk.Combobox(root2, values=list(range(2019, 2030)), width=5)
+        year.grid(row=1, column=title.index("Year"))
+        year.current(1)  # Static value
+        hour = ttk.Combobox(root2, values=list(range(0, 25)), width=3)
+        hour.grid(row=1, column=title.index("Hour"))
+        hour.current(12)
+        minute = ttk.Combobox(root2, values=list(range(0, 61)), width=3)
+        minute.grid(row=1, column=title.index("Minute"))
+        minute.current(0)
+        sec = ttk.Combobox(root2, values=list(range(0, 61)), width=3)
+        sec.grid(row=1, column=title.index("Sec"))
+        sec.current(0)
+
+        # Submit button
+        submit = Button(root2, text="Submit", bg='cornsilk')
+        submit.grid(row=1, column=len(title) + 1, padx=10)
+        submit.bind("<Button-1>", date_submit)
+
