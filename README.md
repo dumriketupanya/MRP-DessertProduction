@@ -9,6 +9,10 @@ Our primary goal is to oversee the entire process, fostering more efficient oper
 ## Take a tour
 Here's an overview of the 6 modules included in this program. We'll explain the principles behind each module as we tour through them. This diagram illustrates the overall principles behind the program.
 
+<p align="center">
+  <img src="https://github.com/dumriketupanya/MRP-DessertProduction/raw/main/Pictures/MRP_Diagram.jpg" width="500" />
+</p>
+
 Let's get started!
 
 ### Home Page
