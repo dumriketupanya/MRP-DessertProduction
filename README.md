@@ -329,5 +329,5 @@ Below is a sample line of codes in the Order Management module, which is a compo
         submit.bind("<Button-1>", date_submit)
 
 ## References 
-- [1] Lee J. Krajewski, et al. (2016). "Operations Management: Processes and Supply Chains," 11th edition.
-- [2] William J. Stevenson (2005). "Operations Management," 8th edition.
+- [1] Lee J. Krajewski, et al. (2016). "Operations Management: Processes and Supply Chains," 11th edition. Pearson.
+- [2] William J. Stevenson (2005). "Operations Management," 8th edition. McGraw-Hill.
